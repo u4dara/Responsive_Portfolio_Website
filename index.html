@@ -6,18 +6,21 @@
         <link rel="stylesheet" href="styles.css">
         <script src="https://kit.fontawesome.com/378c352f45.js" crossorigin="anonymous"></script>
         <title>Portfolio</title>
+        <link rel="icon" type="image/x-icon" href="/images/udara-high-resolution-logo-color-on-transparent-background (1).png">
     </head>
     <body>
         <div id="header">
             <div class="container">
                 <nav>
-                    <img src="images/udara-high-resolution-logo-color-on-transparent-background.png" class="logo">
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Portfolio</a></li>
-                        <li><a href="#">Contact</a></li>
+                    <img src="images/udara-high-resolution-logo-color-on-transparent-background (1).png" class="logo">
+                    <ul id="sidemenu">
+                        <li><a href="#header">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#projects">Portfolio</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
                     </ul>
+                    <i class="fa-solid fa-bars" onclick="openmenu()"></i>
                 </nav>
                 <div class="header-text">
                     <p>Web Developer | UI/UX Designer</p>
@@ -79,7 +82,7 @@
         <!-- ------------------ Strengths ------------------ -->
         <div id="strengths">
             <div class="container">
-                <h1 class="sub-title">Strengths</h1>
+                <h1 class="sub-title">My Strengths</h1>
                 <div class="services-list">
                     <div>
                         <i class="fa-solid fa-code"></i>
@@ -116,7 +119,7 @@
         <!-- ------------------ My Projects ------------------ -->
         <div id="projects">
             <div class="container">
-                <h1 class="sub-title">Projects</h1>
+                <h1 class="sub-title">Featured Projects</h1>
                 <div class="project-list">
                     <div class="project">
                         <img src="images/Screenshot 2023-10-20 at 12.04.21 AM.png" alt="">
@@ -164,31 +167,33 @@
                         <p><i class="fa-solid fa-envelope"></i>u4dara@protonmail.com</p>
                         <p><i class="fa-solid fa-phone"></i>+9476 256 6057</p>
                         <div class="social-icons">
-                            <a href="https://www.facebook.com/U4dara" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="https://www.linkedin.com/in/udara-sachinthana-75b945174/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-                            <a href="https://www.instagram.com/fury_zzz/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="https://www.linkedin.com/in/udara-sachinthana-75b945174/" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="https://github.com/u4dara" target="_blank" class="github"><i class="fa-brands fa-github"></i></a>
                         </div>
                         <a href="documents/Udara Sachinthana CV.pdf" download class="btn btn2">Download CV</a>
                     </div>
                     <div class="contact-right">
-                        <form>
+                        <form name="submit-to-google-sheet">
                             <input type="text" name="name" placeholder="Your Name" required>
                             <input type="email" name="email" placeholder="Your Email" required>
                             <textarea name="message" rows="6" placeholder="Your Message"></textarea>
                             <button type="submit" class="btn btn2">Submit</button>
                         </form>
+                        <span id="msg"></span>
                     </div>
                 </div>
             </div>
-            <div class="copyright"></div>
-            <p></p>
+            <div class="copyright">
+                <p>Web Development | UI/UX <i class="fa-regular fa-copyright"></i> 2023 Udara Sachinthana</p>
+            </div>
         </div>
 
 
 
         <script>
-            var tablinks = document.getElementsByClassName("tab-links");
-            var tabcontents = document.getElementsByClassName("tab-contents");
+            let tablinks = document.getElementsByClassName("tab-links");
+            let tabcontents = document.getElementsByClassName("tab-contents");
+            let sidemenu = document.getElementById("sidemenu");
 
             function opentab(tabname){
                 for(tablink of tablinks){
@@ -200,6 +205,34 @@
                 event.currentTarget.classList.add("active-link");
                 document.getElementById(tabname).classList.add("active-tab");
             }
+
+            function openmenu(){
+                sidemenu.style.right = "0";
+            }
+
+            function closemenu(){
+                sidemenu.style.right = "-200px";
+            }
+        </script>
+
+        <!-- Form Submit Script -->
+        <script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwaSc1SknXH_FLneXJ7-_nZQDUhYRGCmLL3oRltT4JaNcx6_q34FjSuqIFdjyMSs_Va8g/exec'
+            const form = document.forms['submit-to-google-sheet']
+            const msg = document.getElementById("msg");
+        
+            form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    msg.innerHTML = "Message sent successfully!!!";
+                    setTimeout(function(){
+                        msg.innerHTML = "";
+                    }, 5000);
+                    form.reset();
+                })
+                .catch(error => console.error('Error!', error.message))
+            })
         </script>
     </body>
 </html>
